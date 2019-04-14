@@ -17,15 +17,15 @@ cat /cbs/supervisor-freeradius.conf > /etc/supervisor/conf.d/freeradius.conf
 wget https://github.com/lirantal/daloradius/archive/master.zip 
 unzip master.zip 
 rm master.zip 
-mv daloradius-master /var/www/daloradius 
-chown -R www-data:www-data /var/www/daloradius 
-chmod 644 /var/www/daloradius/library/daloradius.conf.php
+mv daloradius-master /var/www/html/daloradius 
+chown -R www-data:www-data /var/www/html/daloradius 
+chmod 644 /var/www/html/daloradius/library/daloradius.conf.php
 
 service mysql start
 mysql -u root --password=initial -e "SET PASSWORD = '$ROOTDBPASS'; FLUSH PRIVILEGES;" 
 mysql -u root --password=$ROOTDBPASS -e "CREATE DATABASE radius; GRANT ALL ON radius.* TO radius@localhost IDENTIFIED BY '$DALODBPASS'; FLUSH PRIVILEGES;" 
 mysql -u radius --password=$DALODBPASS radius < /etc/freeradius/3.0/mods-config/sql/main/mysql/schema.sql 
-mysql -u radius --password=$DALODBPASS radius < /var/www/daloradius/contrib/db/mysql-daloradius.sql 
+mysql -u radius --password=$DALODBPASS radius < /var/www/html/daloradius/contrib/db/mysql-daloradius.sql 
 service mysql stop
 
 cat /cbs/freeradius-default-site > /etc/freeradius/3.0/sites-available/default
@@ -37,8 +37,8 @@ sed -i 's|#\s*read_clients = yes|read_clients = yes|' /etc/freeradius/3.0/mods-a
 ln -s /etc/freeradius/3.0/mods-available/sql /etc/freeradius/3.0/mods-enabled/sql
 ln -s /etc/freeradius/3.0/mods-available/sqlcounter /etc/freeradius/3.0/mods-enabled/sqlcounter
 
-sed -i "s/\$configValues\['CONFIG_DB_PASS'\] = '';/\$configValues\['CONFIG_DB_PASS'\] = '$DALODBPASS';/" /var/www/daloradius/library/daloradius.conf.php 
-sed -i "s/\$configValues\['CONFIG_DB_USER'\] = 'root';/\$configValues\['CONFIG_DB_USER'\] = 'radius';/" /var/www/daloradius/library/daloradius.conf.php
+sed -i "s/\$configValues\['CONFIG_DB_PASS'\] = '';/\$configValues\['CONFIG_DB_PASS'\] = '$DALODBPASS';/" /var/www/html/daloradius/library/daloradius.conf.php 
+sed -i "s/\$configValues\['CONFIG_DB_USER'\] = 'root';/\$configValues\['CONFIG_DB_USER'\] = 'radius';/" /var/www/html/daloradius/library/daloradius.conf.php
 
 rm -r /cbs/*
 
