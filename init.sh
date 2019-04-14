@@ -33,6 +33,7 @@ service mysql stop
 cat /cbs/freeradius-default-site > /etc/freeradius/3.0/sites-available/default
 sed -i 's|driver = "rlm_sql_null"|driver = "rlm_sql_mysql"|' /etc/freeradius/3.0/mods-available/sql 
 sed -i 's|dialect = "sqlite"|dialect = "mysql"|' /etc/freeradius/3.0/mods-available/sql 
+sed -i 's|#\s*login = "freerad"|login = "radius"|' /etc/freeradius/3.0/mods-available/sql 
 sed -i 's|#\s*password = "radpass"|password = "'$DALODBPASS'"|' /etc/freeradius/3.0/mods-available/sql 
 sed -i 's|#\s*read_clients = yes|read_clients = yes|' /etc/freeradius/3.0/mods-available/sql 
 ln -s /etc/freeradius/3.0/mods-available/sql /etc/freeradius/3.0/mods-enabled/sql
