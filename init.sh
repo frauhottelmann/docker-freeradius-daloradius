@@ -1,10 +1,8 @@
 #!/bin/bash
 set -e
 
-echo > /cbs/init.sh <<'EOF'
-#!/bin/bash
-echo "Initialization error" 1>&2
-EOF
+echo '#!/bin/bash' > /cbs/init.sh
+echo 'echo "Initialization error" 1>&2' >> /cbs/init.sh
 
 DEBIAN_FRONTEND=noninteractive
 
@@ -33,7 +31,7 @@ service mysql stop
 cat /cbs/freeradius-default-site > /etc/freeradius/3.0/sites-available/default
 sed -i 's|driver = "rlm_sql_null"|driver = "rlm_sql_mysql"|' /etc/freeradius/3.0/mods-available/sql 
 sed -i 's|dialect = "sqlite"|dialect = "mysql"|' /etc/freeradius/3.0/mods-available/sql 
-sed -i 's|#\s*login = "freerad"|login = "radius"|' /etc/freeradius/3.0/mods-available/sql 
+sed -i 's|#\s*login = "radius"|login = "radius"|' /etc/freeradius/3.0/mods-available/sql 
 sed -i 's|#\s*password = "radpass"|password = "'$DALODBPASS'"|' /etc/freeradius/3.0/mods-available/sql 
 sed -i 's|#\s*read_clients = yes|read_clients = yes|' /etc/freeradius/3.0/mods-available/sql 
 ln -s /etc/freeradius/3.0/mods-available/sql /etc/freeradius/3.0/mods-enabled/sql
@@ -43,9 +41,7 @@ sed -i "s/\$configValues\['CONFIG_DB_USER'\] = 'root';/\$configValues\['CONFIG_D
 
 rm -r /cbs/*
 
-echo > /cbs/init.sh <<'EOF'
-#!/bin/bash
-supervisord -c /etc/supervisor.conf
-EOF
+echo '#!/bin/bash' > /cbs/init.sh
+echo 'supervisord -c /etc/supervisor.conf' >> /cbs/init.sh
 
 supervisord -c /etc/supervisor.conf
