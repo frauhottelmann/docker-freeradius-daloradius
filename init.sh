@@ -34,8 +34,7 @@ sed -i 's|dialect = "sqlite"|dialect = "mysql"|' /etc/freeradius/3.0/mods-availa
 sed -i 's|#\s*login = "radius"|login = "radius"|' /etc/freeradius/3.0/mods-available/sql 
 sed -i 's|#\s*password = "radpass"|password = "'$DALODBPASS'"|' /etc/freeradius/3.0/mods-available/sql 
 sed -i 's|#\s*read_clients = yes|read_clients = yes|' /etc/freeradius/3.0/mods-available/sql 
-ln -s /etc/freeradius/3.0/mods-available/sql /etc/freeradius/3.0/mods-enabled/sql
-ln -s /etc/freeradius/3.0/mods-available/sqlcounter /etc/freeradius/3.0/mods-enabled/sqlcounter
+sed -i 's|instantiate {|instantiate {\nsql\n\sqlcounter|' /etc/freeradius/3.0/radiusd.conf # mods-enabled does not ensure the right order
 
 sed -i "s/\$configValues\['CONFIG_DB_PASS'\] = '';/\$configValues\['CONFIG_DB_PASS'\] = '$DALODBPASS';/" /var/www/html/daloradius/library/daloradius.conf.php 
 sed -i "s/\$configValues\['CONFIG_DB_USER'\] = 'root';/\$configValues\['CONFIG_DB_USER'\] = 'radius';/" /var/www/html/daloradius/library/daloradius.conf.php
