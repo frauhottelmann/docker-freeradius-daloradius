@@ -1,4 +1,4 @@
-FROM 783872453/ubuntu-apache-mysql-php:latest
+FROM frauhottelmann/docker-ubuntu-apache-mysql-php:latest
 
 RUN DEBIAN_FRONTEND=noninteractive \
  && apt-get update \
