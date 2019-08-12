@@ -1,4 +1,4 @@
-FROM frauhottelmann/docker-ubuntu-apache-mysql-php:latest
+FROM frauhottelmann/docker-ubuntu-apache-mysql-php:18.04
 
 RUN DEBIAN_FRONTEND=noninteractive \
  && apt-get update \
