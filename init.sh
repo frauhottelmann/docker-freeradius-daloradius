@@ -15,9 +15,9 @@ apt-get install --yes --no-install-recommends freeradius freeradius-common freer
 cat /cbs/supervisor-freeradius.conf > /etc/supervisor/conf.d/freeradius.conf
 
 wget https://github.com/lirantal/daloradius/archive/v1.1-1.zip 
-unzip master.zip 
-rm master.zip 
-mv daloradius-master /var/www/html/daloradius 
+unzip v1.1-1.zip 
+rm v1.1-1.zip 
+mv daloradius-1.1-1 /var/www/html/daloradius 
 chown -R www-data:www-data /var/www/html/daloradius 
 chmod 644 /var/www/html/daloradius/library/daloradius.conf.php
 
