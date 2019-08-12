@@ -14,7 +14,7 @@ apt-get upgrade --yes
 apt-get install --yes --no-install-recommends freeradius freeradius-common freeradius-utils freeradius-mysql
 cat /cbs/supervisor-freeradius.conf > /etc/supervisor/conf.d/freeradius.conf
 
-wget https://github.com/lirantal/daloradius/archive/v1.1-1.zip 
+wget https://github.com/lirantal/daloradius/archive/master.zip 
 unzip master.zip 
 rm master.zip 
 mv daloradius-master /var/www/html/daloradius 
