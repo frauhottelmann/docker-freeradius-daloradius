@@ -18,6 +18,7 @@ wget https://github.com/lirantal/daloradius/archive/v1.1-1.zip
 unzip v1.1-1.zip 
 rm v1.1-1.zip 
 mv daloradius-1.1-1 /var/www/html/daloradius 
+
 chown -R www-data:www-data /var/www/html/daloradius 
 chmod 644 /var/www/html/daloradius/library/daloradius.conf.php
 
